@@ -4,7 +4,7 @@
   "description": "Utility to count words, lines or bytes in a file",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   ],
   "author": "Daniel Rollins",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/infinityworksconsulting/hitachi-node-101#readme"
+  "homepage": "https://bitbucket.org/infinityworksconsulting/hitachi-node-101#readme",
+  "dependencies": {
+    "jest": "^27.2.2"
+  }
 }

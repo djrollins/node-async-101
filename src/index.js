@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { countWords, countBytes, countCharacters, countLines } = require("./stats");
 
 const filenames = process.argv.slice(2);
 
@@ -14,11 +15,11 @@ const stats = {
 
 for (const filename of filenames) {
 	const buffer = fs.readFileSync(filename);
-	const byteCount = buffer.length;
+	const byteCount = countBytes(buffer);
 	const text = buffer.toString('utf-8');
-	const characters = text.length;
-	const words = text.split(/\s+/).length;
-	const lines = text.split(/\r?\n/).length;
+	const characters = countCharacters(text);
+	const words = countWords(text);
+	const lines = countLines(text);
 
 	stats.files[filename] = {
 		bytes: byteCount,
