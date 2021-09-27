@@ -9,8 +9,8 @@ const countLines = (text) => text.split(/\r?\n/).length;
 //function countLines(text) { return text.split(/\r?\n/).length; }
 
 module.exports = {
-	countBytes,
-	countLines,
-	countWords,
-	countCharacters
-}
+  countBytes,
+  countLines,
+  countWords,
+  countCharacters,
+};

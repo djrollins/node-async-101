@@ -1,14 +1,14 @@
 {
-  "name": "wc",
+  "name": "web-wc",
   "version": "1.0.0",
-  "description": "Utility to count words, lines or bytes in a file",
+  "description": "Utility to count words, lines or bytes in a website",
   "main": "src/index.js",
   "scripts": {
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/infinityworksconsulting/hitachi-node-101.git"
+    "url": "git+ssh://git@github.com/djrollins/node-101.git"
   },
   "keywords": [
     "unix",
@@ -16,8 +16,17 @@
   ],
   "author": "Daniel Rollins",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/infinityworksconsulting/hitachi-node-101#readme",
+  "homepage": "https://gitbub.com/djrollins/node-101#readme",
   "dependencies": {
-    "jest": "^27.2.2"
+    "axios": "^0.21.4",
+    "fetch": "^1.1.0",
+    "node-fetch": "^3.0.0",
+    "sync-request": "^6.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.2.2",
+    "prettier": "^2.4.1"
   }
 }
