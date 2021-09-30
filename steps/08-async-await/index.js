@@ -4,7 +4,7 @@ const urls = process.argv.slice(2);
 
 const results = [];
 
-const handleUrl = async (url) => {
+const processUrl = async (url) => {
   const response = await fetch(url);
 
   if (response.status !== 200) {
@@ -30,7 +30,7 @@ const handleUrl = async (url) => {
 };
 
 for (const url of urls) {
-  results.push(handleUrl(url));
+  results.push(processUrl(url));
 }
 
 Promise.all(results).then(console.table);

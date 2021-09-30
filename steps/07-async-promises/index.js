@@ -4,7 +4,7 @@ const urls = process.argv.slice(2);
 
 const results = [];
 
-const handleUrl = (url) => {
+const processUrl = (url) => {
   return fetch(url)
     .then((response) => {
       if (response.status !== 200) {
@@ -34,7 +34,7 @@ const handleUrl = (url) => {
 };
 
 for (const url of urls) {
-  results.push(handleUrl(url));
+  results.push(processUrl(url));
 }
 
 Promise.all(results).then(console.table);
