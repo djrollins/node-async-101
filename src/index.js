@@ -1,54 +1,32 @@
-const request = require('sync-request');
-
-const {
-  countWords,
-  countBytes,
-  countCharacters,
-  countLines,
-} = require('./stats');
+const fetch = require('node-fetch');
+const stats = require('./stats');
 
 const urls = process.argv.slice(2);
 
-let totalBytes = 0;
-let totalCharacters = 0;
-let totalWords = 0;
-let totalLines = 0;
+const processUrl = async (url) => {
+  const response = await fetch(url);
 
-const stats = { urls: {}, errors: [], total: null };
-
-for (const url of urls) {
-  const response = request('GET', url);
-
-  if (response.statusCode !== 200) {
-    stats.errors.push(url);
-    continue;
+  if (response.status !== 200) {
+    console.error('ERROR', url, response.status);
+    return;
   }
 
-  const text = response.body.toString('utf-8');
+  const body = await response.buffer();
 
-  const byteCount = countBytes(response.body);
-  const characters = countCharacters(text);
-  const words = countWords(text);
-  const lines = countLines(text);
+  const byte = body.length;
+  const text = body.toString('utf-8');
 
-  stats.urls[url] = {
-    bytes: byteCount,
-    characters: characters,
-    words: words,
-    lines: lines,
-  };
+  const characters = stats.countCharacters(text);
+  const words = stats.countWords(text);
+  const lines = stats.countLines(text);
 
-  totalBytes += byteCount;
-  totalCharacters += characters;
-  totalWords += words;
-  totalLines += lines;
-}
-
-stats.total = {
-  bytes: totalBytes,
-  characters: totalCharacters,
-  words: totalWords,
-  lines: totalLines,
+  return { url, byte, characters, words, lines };
 };
 
-console.log(stats);
+results = [];
+
+for (const url of urls) {
+  results.push(processUrl(url));
+}
+
+Promise.all(results).then((stats) => console.table(stats));
