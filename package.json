@@ -1,7 +1,7 @@
 {
-  "name": "web-wc",
+  "name": "wwwwc",
   "version": "1.0.0",
-  "description": "Utility to count words, lines or bytes in a website",
+  "description": "Utility to count characters, words, lines and bytes in a website",
   "main": "src/index.js",
   "scripts": {
     "test": "jest"
