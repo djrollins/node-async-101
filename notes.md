@@ -1,8 +1,23 @@
+node-101: For experienced developers
+
+Assumptions
+
+* You can understand JavaScript syntax
+* You have some idea what node is
+
+Specific JavaSCript syntax:
+
+variable asignmnet
+objects & arrays - propery access and index
+functions: traditional and arrow functions
+
 What is node
 
 Not just JavaScript.
 
-JavaScript VM, event loop, platform APIs, package ecosystem
+JavaScript VM, event loop, standard library and platform APIs, packaging tools and package ecosystem
+
+Poll. What makes node different from other languages? Event loop
 
 JavaScript is syncronous, yes, but the event loop allows us to do certain things in the background.
 Platform APIs and Network stuff is done asyncronously so that we can do other things whilst we wait on sockets
