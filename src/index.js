@@ -67,7 +67,7 @@ const parseArguments = async () => {
   const parsedArgs = [];
 
   for (const arg of argv) {
-    const parsedArg = parseUrl(arg) || (await parseFilePath(arg));
+    const parsedArg = parseUrl(arg) || parseFilePath(arg);
 
     if (parsedArg) {
       parsedArgs.push(parsedArg);

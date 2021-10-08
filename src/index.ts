@@ -78,8 +78,7 @@ const parseArguments = async (): Promise<Array<URL | File>> => {
   const parsedArgs: Array<URL | File> = [];
 
   for (const arg of argv) {
-    /* Forget that parseFileName returns a promise? */
-    const parsedArg = parseUrl(arg) || (await parseFilePath(arg));
+    const parsedArg = parseUrl(arg) || parseFilePath(arg);
 
     if (parsedArg) {
       parsedArgs.push(parsedArg);
