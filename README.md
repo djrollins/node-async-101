@@ -7,7 +7,6 @@ If you want to code along with the TypeScript session, checkout the `typescript-
 ```
 git checkout typescript-101-live
 ```
-
 and install the required packages
 
 ```
