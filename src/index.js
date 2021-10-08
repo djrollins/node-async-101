@@ -39,11 +39,10 @@ const processFile = async (file) => {
 };
 
 const processArgument = async (arg) => {
-  /* swap these? and don't wrap in response */
   if (arg instanceof URL) {
-    return processUrl(arg);
-  } else {
     return processFile(arg);
+  } else {
+    return processUrl(arg);
   }
 };
 

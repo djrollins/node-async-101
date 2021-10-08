@@ -47,11 +47,10 @@ const processFile = async (file: File): Promise<Stats[]> => {
 };
 
 const processArgument = async (arg: File | URL): Promise<Stats[] | Stats> => {
-  /* swap these? and don't wrap in response */
   if (arg instanceof URL) {
-    return processUrl(arg);
-  } else {
     return processFile(arg);
+  } else {
+    return processUrl(arg);
   }
 };
 
