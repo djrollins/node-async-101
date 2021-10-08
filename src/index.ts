@@ -18,12 +18,10 @@ const processUrl = async (url: URL): Promise<Stats> => {
   }
 
   const text = response.data;
-  const characters = stats.countCharacters(text);
   const words = stats.countWords(text);
   const lines = stats.countLines(text);
 
-  /* miss out a stat and don't stringify URL */
-  return { url: url.toString(), characters, words, lines };
+  return { url, words, lines };
 };
 
 const renderResults = (results: Stats[]): string => {
@@ -35,7 +33,6 @@ const renderResults = (results: Stats[]): string => {
 };
 
 const processFile = async (file: File): Promise<Stats[]> => {
-  /* Forget the utf-8 */
   const contents = await file.handle.readFile('utf-8');
   const urls = contents.split(/\s+/).filter((url) => url.trimEnd() !== '');
   const results = urls.map((url) => {

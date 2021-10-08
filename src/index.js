@@ -12,11 +12,10 @@ const processUrl = async (url) => {
   }
 
   const text = response.data;
-  const characters = stats.countCharacters(text);
   const words = stats.countWords(text);
   const lines = stats.countLines(text);
 
-  return { url: url.toString(), characters, words, lines };
+  return { url, words, lines };
 };
 
 const renderResults = (results) => {
