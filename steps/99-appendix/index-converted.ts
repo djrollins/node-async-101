@@ -18,12 +18,10 @@ const processUrl = async (url: URL): Promise<Stats> => {
   }
 
   const text = response.data;
-  const characters = stats.countCharacters(text);
   const words = stats.countWords(text);
   const lines = stats.countLines(text);
 
-  /* miss out a stat and don't stringify URL */
-  return { url: url.toString(), characters, words, lines };
+  return { url, words, lines };
 };
 
 const renderResults = (results: Stats[]): string => {
@@ -35,16 +33,10 @@ const renderResults = (results: Stats[]): string => {
 };
 
 const processFile = async (file: File): Promise<Stats[]> => {
-  /* Forget the utf-8 */
   const contents = await file.handle.readFile('utf-8');
   const urls = contents.split(/\s+/).filter((url) => url.trimEnd() !== '');
   const results = urls.map((url) => {
-    /* forget to parse the URL and or undefined check? */
     const parsedUrl = parseUrl(url);
-    if (!parsedUrl) {
-      console.error(`file ${file.path} contains invalid URL ${url}`);
-      process.exit(-1);
-    }
     return processUrl(parsedUrl);
   });
 
@@ -52,11 +44,10 @@ const processFile = async (file: File): Promise<Stats[]> => {
 };
 
 const processArgument = async (arg: File | URL): Promise<Stats[] | Stats> => {
-  /* swap these? and don't wrap in response */
   if (arg instanceof URL) {
-    return processUrl(arg);
-  } else {
     return processFile(arg);
+  } else {
+    return processUrl(arg);
   }
 };
 
@@ -87,8 +78,7 @@ const parseArguments = async (): Promise<Array<URL | File>> => {
   const parsedArgs: Array<URL | File> = [];
 
   for (const arg of argv) {
-    /* Forget that parseFileName returns a promise? */
-    const parsedArg = parseUrl(arg) || (await parseFilePath(arg));
+    const parsedArg = parseUrl(arg) || parseFilePath(arg);
 
     if (parsedArg) {
       parsedArgs.push(parsedArg);
@@ -105,7 +95,7 @@ const main = async () => {
   const args = await parseArguments();
   const processing = args.map(processArgument);
   const results = await Promise.all(processing);
-  console.log(renderResults(results.flat()));
+  console.log(renderResults(results));
 };
 
 main();
