@@ -32,10 +32,6 @@ const processFile = async (file) => {
   const urls = contents.split(/\s+/).filter((url) => url.trimEnd() !== '');
   const results = urls.map((url) => {
     const parsedUrl = parseUrl(url);
-    if (!parsedUrl) {
-      console.error(`file ${file.path} contains invalid URL ${url}`);
-      process.exit(-1);
-    }
     return processUrl(parsedUrl);
   });
 

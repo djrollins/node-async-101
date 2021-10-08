@@ -39,12 +39,7 @@ const processFile = async (file: File): Promise<Stats[]> => {
   const contents = await file.handle.readFile('utf-8');
   const urls = contents.split(/\s+/).filter((url) => url.trimEnd() !== '');
   const results = urls.map((url) => {
-    /* forget to parse the URL and or undefined check? */
     const parsedUrl = parseUrl(url);
-    if (!parsedUrl) {
-      console.error(`file ${file.path} contains invalid URL ${url}`);
-      process.exit(-1);
-    }
     return processUrl(parsedUrl);
   });
 
