@@ -12,11 +12,10 @@ const processUrl = async (url) => {
   }
 
   const text = response.data;
-  const characters = stats.countCharacters(text);
   const words = stats.countWords(text);
   const lines = stats.countLines(text);
 
-  return { url: url.toString(), characters, words, lines };
+  return { url, words, lines };
 };
 
 const renderResults = (results) => {
@@ -32,10 +31,6 @@ const processFile = async (file) => {
   const urls = contents.split(/\s+/).filter((url) => url.trimEnd() !== '');
   const results = urls.map((url) => {
     const parsedUrl = parseUrl(url);
-    if (!parsedUrl) {
-      console.error(`file ${file.path} contains invalid URL ${url}`);
-      process.exit(-1);
-    }
     return processUrl(parsedUrl);
   });
 
@@ -43,11 +38,10 @@ const processFile = async (file) => {
 };
 
 const processArgument = async (arg) => {
-  /* swap these? and don't wrap in response */
   if (arg instanceof URL) {
-    return processUrl(arg);
-  } else {
     return processFile(arg);
+  } else {
+    return processUrl(arg);
   }
 };
 
@@ -73,7 +67,7 @@ const parseArguments = async () => {
   const parsedArgs = [];
 
   for (const arg of argv) {
-    const parsedArg = parseUrl(arg) || (await parseFilePath(arg));
+    const parsedArg = parseUrl(arg) || parseFilePath(arg);
 
     if (parsedArg) {
       parsedArgs.push(parsedArg);
@@ -90,7 +84,7 @@ const main = async () => {
   const args = await parseArguments();
   const processing = args.map(processArgument);
   const results = await Promise.all(processing);
-  console.log(renderResults(results.flat()));
+  console.log(renderResults(results));
 };
 
 main();
