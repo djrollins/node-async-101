@@ -90,7 +90,7 @@ const main = async () => {
   const args = await parseArguments();
   const processing = args.map(processArgument);
   const results = await Promise.all(processing);
-  console.log(renderResults(results.flat()));
+  console.log(renderResults(results));
 };
 
 main();
